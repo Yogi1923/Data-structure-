@@ -1,0 +1,54 @@
+#include <stdio.h>
+        int index = *prefix - 'a';
+        if (!current->children[index]) {
+            printf("No autocomplete suggestions found for \"%s\"\n", prefix);
+            return;
+        }
+        current = current->children[index];
+        prefix++;
+    }
+
+    char buffer[100];
+    strncpy(buffer, prefix, strlen(prefix));
+    autocomplete_helper(current, buffer, strlen(prefix));
+}
+
+int main() {
+    TrieNode *root = create_node();
+    char input[100];
+    int choice;
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Insert word\n");
+        printf("2. Autocomplete\n");
+printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar();  // Consume newline character
+
+        switch (choice) {
+        case 1:
+            printf("Enter word to insert: ");
+            scanf("%s", input);
+            getchar();  // Consume newline character
+            insert(root, input);
+            printf("Word inserted.\n");
+            break;
+        case 2:
+            printf("Enter prefix for autocomplete: ");
+            scanf("%s", input);
+            getchar();  // Consume newline character
+            printf("Autocomplete suggestions:\n");
+            autocomplete(root, input);
+            break;
+        case 3:
+            printf("Exiting program.\n");
+            exit(0);
+        default:
+            printf("Invalid choice, try again.\n");
+}
+    }
+
+    return 0;
+}
